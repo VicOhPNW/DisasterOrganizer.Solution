@@ -2,6 +2,100 @@
   Layout = "_Layout";
 }
 
-<div class="container">
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="../dcss/styles.css" rel="stylesheet" type="text/css">
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   
+    <title>Welcome to Disaster Response Meet up. </title>
+  </head>
+  <body class="home">
+    <div class="topnav">
+      <a class="active" href="../index.html">Home     -</a>
+      <a href="#menu">Menu     -</a>
+      <a href="#contact">Contact     -</a>
+      <a href="#about">About     </a>
+      <input type="text" placeholder="Search..">
+      <a href="#" class="fa fa-facebook"></a>
+      <a href="#" class="fa fa-twitter"></a>
+      <a href="#" class="fa fa-google"></a>
+      <a href="#" class="fa fa-youtube"></a>
+      <a href="#" class="fa fa-instagram"></a>
+    </div>
+    <img id="topPic"src="../img/barcheader.jpg">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="jumbotron1">
+            <h1>Welcome to Disaster Response Meet up.</h1>
+            <br>
+            <p id=opening> </p>
+          </div>
+        </div>
+      </div>
+      <div class="blink_me"><h1>Come join us for the <span>"Annual First Aid Training".</span>This year will be October 20th, 2018.</h1></div>
+    </div>
+    <section>
+      <img class="mySlides" src="../img/wordgraph.jpg" alt="pic of emergancy word graph">
+      <img class="mySlides" src="../img/missioncontrol.jpeg/" alt="pic of mission control for response team">
+      <img class="mySlides" src="../img/truck.jpeg" alt="pic of emergancy truck">
+      <img class="mySlides" src="../img/redcross.png" alt="pic of redcross">
+      <img class="mySlides" src="../img/responsesign.png" alt="pic of emergancy sign">
+      <img class="mySlides" src="../img/training.jpeg"alt="pic of emergacy crew training">
 
-</div>
+    <section>
+    <br>
+    <br>
+    <h2><span>Current emergancies going on:</span></h2>
+      <style>
+        .newspaper{
+        column-count: 3;
+        }
+      </style>
+    <div class="newspaper" id="activeOne">
+      <p><img src="../img/workcrew.jpeg" ref="emergancy work crew"><br><span>Sign up to help your community:</span>
+      The actions taken in the initial minutes of an emergency are critical. A prompt warning to the community to evacuate, shelter or lockdown can save lives. A call for help to this public emergency services provides full and accurate information that will help the mission controll dispatchers send the right responders and equipment. An volunteer trained to administer first aid or perform CPR can be <span>lifesaving</span>. We include a first aid and response training for all volunteers. It is required that you take the cpr and first aid exams yearly certification.
+      -----//need to add razor for voluteer signup here!-----
+      </p>
+      <button type="btn btn-success" name="button" class="blink_me">Sign up Now</button>
+    </div>
+    <br>
+    <div class="newspaper" id="activeTwo">
+      <p><img src="../img/communityhelp.jpeg"><span>Community Clean Up and Repair:</span>If your unable to get trained at this time and woukd like to help out, you dont have to look further. Are you good at cleaning, yard work, painting, or just want to help whatever way you can? We have a local construction team to help lead the work so all of us affected by the disaster can have a place to sleep. We heavy rely on community involvement, and would always like more volunteers(click above to sign up for full cetified volunteer).</p>
+      -----//need to add razor here -------
+      <button type="btn btn-success" name="button" class="blink_me">Sign Up Now</button>
+    </div>
+    <br>
+    <div class="newspaper" id="activeThree">
+      <p><img src="../img/emergancyonsite.jpg" ref="brooklyn bridge"><p><span>(Current / Add) Disasters: Here you can see and add the current on going disasters----//add razor here-----</span></p>
+      <button type="btn btn-success" name="button" class="blink_me">Sign Up Now</button>
+    </div>
+    <br>
+    <h3>Find out how you can help out more!</h3>
+    <p>There is always one thing that you can do a day to make this world a better place.</p>
+    <div>
+      <button class="btn btn-success" type="button"><img src="../img/redcross.jpeg" alt="picture of red cross"></button>
+      <button class="btn btn-success" type="button"><img src="../img/responsegov.jpeg" alt="picture of gov response system"></button>
+      <button class="btn btn-success" type="button"><img src="../img/cert.jpeg" alt="picture of cert signboard"></button>
+    </div>
+    <div>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/80twsCr7oyc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+    <br>
+    <br>
+    <div class="topnav">
+      <a class="active" href="../index.html">Home</a>
+      <a href="#menu">Menu</a>
+      <a href="#contact">Contact</a>
+      <a href="#about">About</a>
+    </div>
+      <footer><a href="../index.html">Home </a>· Thank you for visiting! · Epicodus 2018</footer>
+  </body>
+</html>

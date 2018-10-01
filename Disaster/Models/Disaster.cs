@@ -234,7 +234,28 @@ namespace Disaster.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            List<Volunteer> DisasterVolunteer = new List<Volunteer> {};
+
+            cmd.CommandText = @"SELECT volunteers.* FROM disasters
+            JOIN disasters_volunteers ON (disasters.id = disasters_volunteers.disasters_id)
+            JOIN volunteers ON(disasters_volunteers.volunteer_id = volunteers.id)
+            WHERE disasters.id = @searchId;";
+
+            MySqlParameter searchId = new MySqlParameter();
+            searchId.ParameterName = "@searchId";
+            searchId.Value = _id;
+            cmd.Parameters.Add(searchId);
+
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            List<Volunteer> DisasterVolunteer = new List<Volunteer> { };
+
+
+            while(rdr.Read())
+            {
+                int volunteerId = rdr.GetInt32(0);
+                string volunteerName = rdr.GetString(1);
+                Volunteer newVolunteer = new Volunteer(volunteerName, volunteerId);
+                DisasterVolunteer.Add(newVolunteer);
+            }
             
             conn.Close();
             if (conn != null)

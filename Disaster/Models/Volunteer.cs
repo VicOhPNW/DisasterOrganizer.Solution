@@ -22,6 +22,25 @@ namespace Disaster.Models
         {
             return _id;
         }
+        public override bool Equals(System.Object otherVolunteer)
+        {
+            if(!(otherVolunteer is Volunteer))
+            {
+                return false;
+            }
+            else
+            {
+                Volunteer newVolunteer = (Volunteer)otherVolunteer;
+                bool idEquality = this.GetId() == newVolunteer.GetId();
+                bool nameEquality = this.GetName() == newVolunteer.GetName();
+                return (idEquality && nameEquality);
+            }
+        }
+        public override int GetHashCode()
+        {
+            string allHash = this.GetName();
+            return allHash.GetHashCode();
+        }
         public static void DeleteAll()
         {
             MySqlConnection conn = DB.Connection();

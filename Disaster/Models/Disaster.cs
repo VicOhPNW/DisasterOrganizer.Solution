@@ -40,6 +40,28 @@ namespace Disaster.Models
         {
             return _id;
         }
+        public override bool Equals(System.Object otherDisaster)
+        {
+            if(!(otherDisaster is Disaster))
+            {
+                return false;
+            }
+            else
+            {
+                Disaster newDisaster = (Disaster)otherDisaster;
+                bool idEquality = this.GetId() == newDisaster.GetId();
+                bool nameEquality = this.GetId() == newDisaster.GetId();
+                bool locationEquality = this.GetLocation() == newDisaster.GetLocation();
+                bool volunteerEquality = this.GetVolunteer() == newDisaster.GetVolunteer();
+                bool timeEquality = this.GetTime() == newDisaster.GetTime();
+                return (idEquality && nameEquality && locationEquality && volunteerEquality && timeEquality);
+            }
+        }
+        public override int GetHashCode()
+        {
+            string allHash = this.GetName() + this.GetLocation();
+            return allHash.GetHashCode();
+        }
         public static void DeleteAll()
         {
             MySqlConnection conn = DB.Connection();
@@ -83,7 +105,7 @@ namespace Disaster.Models
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
 
-            cmd.CommandText = @"UPDATE disasters SET (name = @newName, location = @newLocation, voluteers = @newVolunteers, time = @newTime) WHERE id = @searchId;";
+            cmd.CommandText = @"UPDATE disasters SET (name = @newName, location = @newLocation, volunteers = @newVolunteers, time = @newTime) WHERE id = @searchId;";
 
             MySqlParameter name = new MySqlParameter();
             name.ParameterName = "@newName";

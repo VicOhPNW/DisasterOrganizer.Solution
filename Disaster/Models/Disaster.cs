@@ -83,6 +83,40 @@ namespace Disaster.Models
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
 
+            cmd.CommandText = @"UPDATE disasters SET (name = @newName, location = @newLocation, voluteers = @newVolunteers, time = @newTime) WHERE id = @searchId;";
+
+            MySqlParameter name = new MySqlParameter();
+            name.ParameterName = "@newName";
+            name.Value = newName;
+            cmd.Parameters.Add(name);
+
+            MySqlParameter location = new MySqlParameter();
+            location.ParameterName = "@newLocation";
+            location.Value = newLocation;
+            cmd.Parameters.Add(location);
+
+            MySqlParameter volunteers = new MySqlParameter();
+            volunteers.ParameterName = "@newVolunteers";
+            volunteers.Value = newVolunteers;
+            cmd.Parameters.Add(volunteers);
+
+            MySqlParameter time = new MySqlParameter();
+            time.ParameterName = "newTime";
+            time.Value = newTime;
+            cmd.Parameters.Add(time);
+
+            MySqlParameter searchId = new MySqlParameter();
+            searchId.ParameterName = "@searchId";
+            searchId.Value = _id;
+            cmd.Parameters.Add(searchId);
+
+            cmd.ExecuteNonQuery();
+
+            _name = newName;
+            _location = newLocation;
+            _volunteers = newVolunteers;
+            _time = newTime;
+
             conn.Close();
             if (conn != null)
             {
@@ -94,6 +128,32 @@ namespace Disaster.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
+
+            cmd.CommandText = @"INSERT INTO disasters (name, location, volunteers, time) VALUES (@name, @location, @volunteers, @time);";
+
+            MySqlParameter name = new MySqlParameter();
+            name.ParameterName = "@name"; 
+            name.Value = this.GetName();
+            cmd.Parameters.Add(name);
+
+            MySqlParameter location = new MySqlParameter();
+            location.ParameterName = "@location";
+            location.Value = this.GetLocation();
+            cmd.Parameters.Add(location);
+
+            MySqlParameter volunteers = new MySqlParameter();
+            volunteers.ParameterName = "@volunteers";
+            volunteers.Value = this.GetVolunteers();
+            cmd.Parameters.Add(volunteers);
+
+            MySqlParameter time = new MySqlParameter();
+            time.ParameterName = "@time";
+            time.Value = this.GetTime();
+            cmd.Parameters.Add(time);
+            
+            cmd.ExecuteNonQuery();
+
+            _id = (int)cmd.LastInsertedId;
 
             conn.Close();
             if (conn != null)
@@ -107,6 +167,21 @@ namespace Disaster.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
+
+            cmd.CommandText = @"SELECT * FROM disasters;";
+
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+            while(rdr.Read())
+            {
+                int disasterId = rdr.GetInt32(0);
+                string disasterName = rdr.GetString(1);
+                string disasterLocation = rdr.GetString(2);
+                int disasterVolunteer = rdr.GetInt32(3);
+                DateTime disasterTime = rdr.GetDateTime(4);
+                Disaster newDisaster = new Disaster(disasterName, disasterLocation, disasterVolunteer, disasterTime, disasterId);
+                allDisasters.Add(newDisaster);
+            }
            
             conn.Close();
             if (conn != null)
@@ -121,8 +196,31 @@ namespace Disaster.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            Disaster newDisaster = new Disaster (disasterName, disasterId);
-            
+
+            cmd.CommandText = @"SELECT * FROM disasters WHERE id = (@searchId);";
+
+            MySqlParameter searchId = new MySqlParameter();
+            searchId.ParameterName = "@searchId";
+            searchId.Value = id;
+            cmd.Parameters.Add(searchId);
+
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            int disasterId = 0;
+            string disasterName = "";
+            string disasterLocation = "";
+            int disasterVolunteer = 0;
+            DateTime disasterTime = new DateTime(2012, 01, 02);
+
+            while(rdr.Read())
+            {
+                disasterId = rdr.GetInt32(0);
+                disasterName = rdr.GetString(1);
+                disasterLocation = rdr.GetString(2);
+                disasterVolunteer = rdr.GetInt32(3);
+                disasterTime = rdr.GetDateTime(4);
+            }
+            Disaster newDisaster = new Disaster (disasterName, disasterLocation, disasterVolunteer, disasterTime, disasterId);
+           
             conn.Close();
             if (conn != null)
             {

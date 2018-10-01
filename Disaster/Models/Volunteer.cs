@@ -197,7 +197,7 @@ namespace Disaster.Models
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
 
-            cmd.CommandText = @"SELECT disaster.* FROM volunteers
+            cmd.CommandText = @"SELECT disasters.* FROM volunteers
             JOIN disasters_volunteers ON (volunteers.id = disasters_volunteers.volunteer_id)
             JOIN disasters ON (disasters_volunteers.disaster_id = disasters.id)
             WHERE volunteers.id = @searchId;";

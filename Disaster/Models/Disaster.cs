@@ -84,7 +84,7 @@ namespace Disaster.Models
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
 
-            cmd.CommandText = @"DELETE FROM disasters WHERE id = @disasterId; DELETE FROM disasters_volunteers WHERE id = @id;";
+            cmd.CommandText = @"DELETE FROM disasters WHERE id = @disasterId; DELETE FROM disasters_volunteers WHERE id = @disasterId;";
 
             MySqlParameter disasterId = new MySqlParameter();
             disasterId.ParameterName = "@disasterId";

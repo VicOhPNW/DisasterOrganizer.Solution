@@ -134,7 +134,7 @@ namespace Disaster.Models
             {
                 conn.Dispose();
             }
-            
+
             return allVolunteers;
         }
         public static Volunteer Find(int id)
@@ -168,7 +168,7 @@ namespace Disaster.Models
             {
                 conn.Dispose();
             }
-            
+
             return newVolunteer;
         }
         public List<Disaster> GetDisaster()
@@ -177,13 +177,13 @@ namespace Disaster.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            
+
             conn.Close();
             if (conn != null)
             {
                 conn.Dispose();
             }
-            
+
             return VolunteerDisaster;
         }
         public void AddDisaster(Disaster newDisaster)

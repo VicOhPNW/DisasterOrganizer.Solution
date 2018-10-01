@@ -40,6 +40,28 @@ namespace Disaster.Models
         {
             return _id;
         }
+        public override bool Equals(System.Object otherDisaster)
+        {
+            if(!(otherDisaster is Disaster))
+            {
+                return false;
+            }
+            else
+            {
+                Disaster newDisaster = (Disaster)otherDisaster;
+                bool idEquality = this.GetId() == newDisaster.GetId();
+                bool nameEquality = this.GetId() == newDisaster.GetId();
+                bool locationEquality = this.GetLocation() == newDisaster.GetLocation();
+                bool volunteerEquality = this.GetVolunteer() == newDisaster.GetVolunteer();
+                bool timeEquality = this.GetTime() == newDisaster.GetTime();
+                return (idEquality && nameEquality && locationEquality && volunteerEquality && timeEquality);
+            }
+        }
+        public override int GetHashCode()
+        {
+            string allHash = this.GetName() + this.GetLocation();
+            return allHash.GetHashCode();
+        }
         public static void DeleteAll()
         {
             MySqlConnection conn = DB.Connection();
@@ -62,7 +84,7 @@ namespace Disaster.Models
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
 
-            cmd.CommandText = @"DELETE FROM disasters WHERE id = @disasterId; DELETE FROM disasters_volunteers WHERE id = @id;";
+            cmd.CommandText = @"DELETE FROM disasters WHERE id = @disasterId; DELETE FROM disasters_volunteers WHERE id = @disasterId;";
 
             MySqlParameter disasterId = new MySqlParameter();
             disasterId.ParameterName = "@disasterId";
@@ -83,7 +105,7 @@ namespace Disaster.Models
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
 
-            cmd.CommandText = @"UPDATE disasters SET (name = @newName, location = @newLocation, voluteers = @newVolunteers, time = @newTime) WHERE id = @searchId;";
+            cmd.CommandText = @"UPDATE disasters SET (name = @newName, location = @newLocation, volunteers = @newVolunteers, time = @newTime) WHERE id = @searchId;";
 
             MySqlParameter name = new MySqlParameter();
             name.ParameterName = "@newName";
@@ -234,7 +256,28 @@ namespace Disaster.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            List<Volunteer> DisasterVolunteer = new List<Volunteer> {};
+
+            cmd.CommandText = @"SELECT volunteers.* FROM disasters
+            JOIN disasters_volunteers ON (disasters.id = disasters_volunteers.disasters_id)
+            JOIN volunteers ON(disasters_volunteers.volunteer_id = volunteers.id)
+            WHERE disasters.id = @searchId;";
+
+            MySqlParameter searchId = new MySqlParameter();
+            searchId.ParameterName = "@searchId";
+            searchId.Value = _id;
+            cmd.Parameters.Add(searchId);
+
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            List<Volunteer> DisasterVolunteer = new List<Volunteer> { };
+
+
+            while(rdr.Read())
+            {
+                int volunteerId = rdr.GetInt32(0);
+                string volunteerName = rdr.GetString(1);
+                Volunteer newVolunteer = new Volunteer(volunteerName, volunteerId);
+                DisasterVolunteer.Add(newVolunteer);
+            }
             
             conn.Close();
             if (conn != null)
@@ -249,6 +292,20 @@ namespace Disaster.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
+
+            cmd.CommandText = @"INSERT INTO disasters_volunteers (disaster_id, volunteer_id) VALUES (@disasterId, @volunteerId);";
+
+            MySqlParameter disasterId = new MySqlParameter();
+            disasterId.ParameterName = "@disasterId";
+            disasterId.Value = _id;
+            cmd.Parameters.Add(disasterId);
+
+            MySqlParameter volunteerId = new MySqlParameter();
+            volunteerId.ParameterName = "@volunteerId";
+            volunteerId.Value = newVolunteer.GetId();
+            cmd.Parameters.Add(volunteerId);
+
+            cmd.ExecuteNonQuery();
 
             conn.Close();
             if (conn != null)

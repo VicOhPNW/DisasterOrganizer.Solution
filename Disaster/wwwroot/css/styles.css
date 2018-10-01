@@ -1,0 +1,99 @@
+body {	
+	background: linear-gradient(to bottom, #ccfff5, #99ffeb, #fec051, #FEE140, #FA709A );
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
+body:before{
+	content:'';
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	z-index: -1;
+	background: linear-gradient(to right bottom, rgba(255,255,255,0.2), #21D4FD 75%);
+}
+
+#topPic{
+  opacity: .7;
+  z-index:-1;
+  position: absolute;
+  width: 100%;
+}
+
+.topnav{
+  padding: 29px;
+  background-color: #dddddd;
+  overflow: hidden;
+}
+
+p{
+  text-align: center;
+  text-shadow:
+}
+
+#opening{
+text-shadow: 1.5px 1.3px #b3d9ff;
+font-size: 30px;
+font-weight: bold;
+}
+
+h1{
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+  text-shadow: 1.5px 1.3px #b3d9ff;
+}
+
+.blink_me {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+h2{
+  text-align: center;
+}
+span{
+  font-weight: bold;
+  font-style: italic;
+}
+
+.newspaper{
+  margin-top: 10px;
+  background-image: url ("erpsign.png");
+  border-radius: 25px;
+}
+
+section img{
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  width:375px;
+  height: 250px;
+}
+
+#firstActivity{
+  background-color: #99d6ff
+}
+
+.btn{
+background-color: #ffffb3 ;
+}
+
+.btn:hover{
+background-color: #e6ccff;
+}
+.bottom{
+  align-items: center;
+}
+
+iframe {
+  align: middle;
+  margin-left: 3%;
+  margin-top: 3%;
+}

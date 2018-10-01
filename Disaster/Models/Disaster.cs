@@ -250,6 +250,20 @@ namespace Disaster.Models
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
 
+            cmd.CommandText = @"INSERT INTO disasters_volunteers (disaster_id, volunteer_id) VALUES (@disasterId, @volunteerId);";
+
+            MySqlParameter disasterId = new MySqlParameter();
+            disasterId.ParameterName = "@disasterId";
+            disasterId.Value = _id;
+            cmd.Parameters.Add(disasterId);
+
+            MySqlParameter volunteerId = new MySqlParameter();
+            volunteerId.ParameterName = "@volunteerId";
+            volunteerId.Value = newVolunteer.GetId();
+            cmd.Parameters.Add(volunteerId);
+
+            cmd.ExecuteNonQuery();
+
             conn.Close();
             if (conn != null)
             {

@@ -40,6 +40,41 @@ namespace Disaster.Models
         {
             return _id;
         }
+        public static void DeleteAll()
+        {
+
+        }
+        public void Delete()
+        {
+
+        }
+        public void Edit(string newName, string newLocation, int newVolunteers, DateTime newTime)
+        {
+            
+        }
+        public void Save()
+        {
+
+        }
+        public static List<Disaster> GetAll()
+        {
+            List<Disaster> allDisasters = new List<Disaster> {};
+            return allDisasters;
+        }
+        public static Disaster Find(int id)
+        {
+            Disaster newDisaster = new Disaster (disasterName, disasterId);
+            return newDisaster;
+        }
+        public List<Volunteer> GetVolunteer()
+        {
+            List<Volunteer> DisasterVolunteer = new List<Volunteer> {};
+            return DisasterVolunteer;
+        }
+        public void AddVolunteer(Volunteer newVolunteer)
+        {
+
+        }
 
     }
 }

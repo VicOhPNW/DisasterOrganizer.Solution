@@ -178,6 +178,29 @@ namespace Disaster.Models
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
 
+            cmd.CommandText = @"SELECT disaster.* FROM volunteers
+            JOIN disasters_volunteers ON (volunteers.id = disasters_volunteers.volunteer_id)
+            JOIN disasters ON (disasters_volunteers.disaster_id = disasters.id)
+            WHERE volunteers.id = @searchId;";
+
+            MySqlParameter searchId = new MySqlParameter();
+            searchId.ParameterName = "@searchId";
+            searchId.Value = _id;
+            cmd.Parameters.Add(searchId);
+
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+            while(rdr.Read())
+            {
+                int disasterId = rdr.GetInt32(0);
+                string disasterName = rdr.GetString(1);
+                string disasterLocation = rdr.GetString(2);
+                int disasterVolunteer = rdr.GetInt32(3);
+                DateTime disasterTime = rdr.GetDateTime(4);
+                Disaster newDisaster = new Disaster(disasterName, disasterLocation, disasterVolunteer, disasterTime, disasterId);
+                VolunteerDisaster.Add(newDisaster);
+            }
+
             conn.Close();
             if (conn != null)
             {

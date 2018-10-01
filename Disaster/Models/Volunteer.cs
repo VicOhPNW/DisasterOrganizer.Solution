@@ -24,39 +24,109 @@ namespace Disaster.Models
         }
         public static void DeleteAll()
         {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
 
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
         }
         public void Delete()
         {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
 
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
         }
         public void Edit(string newName)
         {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
 
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
         }
         public void Save()
         {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
 
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
         }
         public static List<Volunteer> GetAll()
         {
-            List<Volunteer> allVolunteers = new List<Volunteer> { };
+            List<Volunteer> allVolunteers = new List<Volunteer> {};
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            
             return allVolunteers;
         }
         public static Volunteer Find(int id)
         {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+
             Volunteer newVolunteer = new Volunteer(volunteerName, volunteerId);
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            
             return newVolunteer;
         }
         public List<Disaster> GetDisaster()
         {
             List<Disaster> VolunteerDisaster = new List<Disaster>{};
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            
             return VolunteerDisaster;
         }
         public void AddDisaster(Disaster newDisaster)
         {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
 
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
         }
-
     }
 }

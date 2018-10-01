@@ -5,7 +5,7 @@ using Disaster;
 
 namespace Disaster.Models
 {
-    public class CustomClassHere
+    public class Disaster
     {
 
     }

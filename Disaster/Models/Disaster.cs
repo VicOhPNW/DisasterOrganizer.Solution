@@ -46,6 +46,10 @@ namespace Disaster.Models
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
 
+            cmd.CommandText = @"DELETE FROM disasters;";
+
+            cmd.ExecuteNonQuery();
+
             conn.Close();
             if (conn != null)
             {
@@ -57,6 +61,15 @@ namespace Disaster.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
+
+            cmd.CommandText = @"DELETE FROM disasters WHERE id = @disasterId; DELETE FROM disasters_volunteers WHERE id = @id;";
+
+            MySqlParameter disasterId = new MySqlParameter();
+            disasterId.ParameterName = "@disasterId";
+            disasterId.Value = _id;
+            cmd.Parameters.Add(disasterId);
+
+            cmd.ExecuteNonQuery();
 
             conn.Close();
             if (conn != null)

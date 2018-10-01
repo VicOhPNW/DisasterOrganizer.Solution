@@ -51,7 +51,7 @@ namespace Disaster.Models
             volunteerId.Value = _id;
             cmd.Parameters.Add(volunteerId);
 
-            cmd.ExecuteNonQuery;
+            cmd.ExecuteNonQuery();
 
             conn.Close();
             if (conn != null)
@@ -64,6 +64,18 @@ namespace Disaster.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
+
+            cmd.CommandText = @"UPDATE volunteers SET name = @newName WHERE id = @volunteerId;";
+
+            MySqlParameter name = new MySqlParameter();
+            name.ParameterName = "@newName";
+            name.Value = newName;
+            cmd.Parameters.Add(name);
+
+            MySqlParameter volunteerId = new MySqlParameter();
+            volunteerId.ParameterName = "@volunteerId";
+            volunteerId.Value = _id;
+            cmd.Parameters.Add(volunteerId);
 
             conn.Close();
             if (conn != null)

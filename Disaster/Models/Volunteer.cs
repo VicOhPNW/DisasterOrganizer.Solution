@@ -14,11 +14,11 @@ namespace Disaster.Models
             _name = name;
             _id = id;
         }
-        private string GetName()
+        public string GetName()
         {
             return _name;
         }
-        private int GetId()
+        public int GetId()
         {
             return _id;
         }
@@ -77,6 +77,10 @@ namespace Disaster.Models
             volunteerId.Value = _id;
             cmd.Parameters.Add(volunteerId);
 
+            cmd.ExecuteNonQuery();
+            
+            _name = newName;
+
             conn.Close();
             if (conn != null)
             {
@@ -88,6 +92,17 @@ namespace Disaster.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
+
+            cmd.CommandText = @"INSERT INTO volunteers (name) VALUES (@name);";
+
+            MySqlParameter name = new MySqlParameter();
+            name.ParameterName = "@name";
+            name.Value = this.GetName();
+            cmd.Parameters.Add(name);
+
+            cmd.ExecuteNonQuery();
+
+            _id = (int)cmd.LastInsertedId;
 
             conn.Close();
             if (conn != null)
@@ -102,6 +117,18 @@ namespace Disaster.Models
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
 
+            cmd.CommandText = @"SELECT * FROM volunteers;";
+
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+            while(rdr.Read())
+            {
+                int volunteerId = rdr.GetInt32(0);
+                string volunteerName = rdr.GetString(1);
+                Volunteer newVolunteer = new Volunteer(volunteerName, volunteerId);
+                allVolunteers.Add(newVolunteer);
+            }
+
             conn.Close();
             if (conn != null)
             {
@@ -115,6 +142,24 @@ namespace Disaster.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
+
+            cmd.CommandText = @"SELECT * FROM volunteers WHERE id = @volunteerId;";
+
+            MySqlParameter searchId = new MySqlParameter();
+            searchId.ParameterName = "@volunteerId";
+            searchId.Value = id;
+            cmd.Parameters.Add(searchId);
+
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+
+            int volunteerId = 0;
+            string volunteerName = "";
+
+            while(rdr.Read())
+            {
+                volunteerId = rdr.GetInt32(0);
+                volunteerName = rdr.GetString(1);
+            }
 
             Volunteer newVolunteer = new Volunteer(volunteerName, volunteerId);
 

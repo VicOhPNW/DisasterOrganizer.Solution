@@ -9,5 +9,10 @@ namespace Disaster.Tests
     [TestClass]
     public class HomeControllerTest
     {
+      [HttpGet("/")]
+      public ActionResult Index()
+      {
+        return View();
+      }
     }
 }
